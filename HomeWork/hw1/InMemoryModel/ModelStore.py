@@ -8,13 +8,21 @@ from HomeWork.hw1.ModelElements.PoligonalModel import PoligonalModel
 from HomeWork.hw1.ModelElements.Scene import Scene
 
 
-class ModelSrore:
-    zope.interface.implements(IModelChangedObserver, ImodelChanger)
-    models = list[PoligonalModel]
-    scenes = list[Scene]
-    flashes = list[Flash]
-    cameras = list[Camera]
+class ModelStore:
+    zope.interface.implements(ImodelChanger)
+    models: list[PoligonalModel]
+    scenes: list[Scene]
+    flashes: list[Flash]
+    cameras: list[Camera]
+    _changedObserver : list[IModelChangedObserver]
 
+    def __init__(self, changedObserver: list[IModelChangedObserver]):
+        self._changedObserver = changedObserver
+        self.models= PoligonalModel()
+        self.scenes =Scene()
+        self.flashes =Flash()
+        self.cameras =Camera()
+        self._changedObserver = list[IModelChangedObserver]
 
     def getScena(self, num: int) -> Scene:
         result = Scene.method1(num)
