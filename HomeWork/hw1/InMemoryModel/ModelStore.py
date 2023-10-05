@@ -9,7 +9,7 @@ from HomeWork.hw1.ModelElements.Scene import Scene
 
 
 class ModelStore:
-    zope.interface.implements(ImodelChanger)
+    zope.interface.implementer(ImodelChanger)
     models: list[PoligonalModel]
     scenes: list[Scene]
     flashes: list[Flash]
