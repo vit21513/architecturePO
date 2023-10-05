@@ -4,6 +4,10 @@ from HomeWork.hw1.ModelElements.PoligonalModel import PoligonalModel
 
 
 class Scene:
+
+    id: int
+    models: list[PoligonalModel]
+    flashes: list[Flash]
     cameras: list[Camera]
 
     def __init__(self, id: int, models: list[PoligonalModel], flashes: list[Flash], cameras: list[Camera]):
@@ -13,7 +17,11 @@ class Scene:
         else:
             raise Exception('должна быть хоть одна модель')
         self.flashes = flashes
-        self.cameras = cameras
+        if len(cameras) > 0:
+            self.cameras = cameras
+        else:
+            raise Exception('должна быть хоть одна камера')
+
 
     def method1(self, obj: object):
         return obj
