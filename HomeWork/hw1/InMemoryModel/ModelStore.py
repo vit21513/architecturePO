@@ -8,7 +8,7 @@ from HomeWork.hw1.ModelElements.PoligonalModel import PoligonalModel
 from HomeWork.hw1.ModelElements.Scene import Scene
 
 
-class ModelStore:
+class ModelStore(object):
     zope.interface.implementer(ImodelChanger)
     models: list[PoligonalModel]
     scenes: list[Scene]
