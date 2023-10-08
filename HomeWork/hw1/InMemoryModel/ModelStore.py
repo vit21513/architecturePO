@@ -18,10 +18,10 @@ class ModelStore(object):
 
     def __init__(self, changedObserver: list[IModelChangedObserver]):
         self._changedObserver = changedObserver
-        self.models= PoligonalModel()
-        self.scenes =Scene()
-        self.flashes =Flash()
-        self.cameras =Camera()
+        self.models.append(PoligonalModel())
+        self.scenes.append(Scene())
+        self.flashes.append(Flash())
+        self.cameras.append(Camera())
         self._changedObserver = list[IModelChangedObserver]
 
     def getScena(self, num: int) -> Scene:
