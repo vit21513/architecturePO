@@ -1,0 +1,233 @@
+openapi: 3.0.1
+info:
+  title: Робот-Пылесос
+  version: 0.0.1
+servers:
+  - url: http://localhost:8080/api/v1
+    description: Dev server
+paths:
+  /users:
+    get:
+      summary: получение списка пользователей
+      tags: 
+        - Users
+      operationId: getAllUsers
+      responses:
+        "200":
+          description: Успешный ответ со списком пользавателей
+          content:
+            adplication/json:
+              schema:
+                $ref: "#/components/schemas/Users"
+        "default":
+          description:  Все остальное
+          content:
+            adplication/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+    post:
+      summary: Метод создания  нового пользователя
+      tags: 
+        - Users
+      operationId: createUser
+      requestBody:
+        required: true
+        content:
+            adplication/json:
+              schema:
+                $ref: "#/components/schemas/User" 
+      responses:
+        "200":
+          description: Успешный ответ добавления нового клиента
+          content:
+            adplication/json:
+              schema:
+                $ref: "#/components/schemas/Users"
+        "default":
+          description: Всё остальное
+          content:
+            adplication/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+  /users/{idUser}:
+    delete:
+      summary: Удаление пользователя по id
+      tags:
+        - Users
+      operationId: deleteClientById
+      parameters:
+        - name: idUser
+          in: path
+          required: true
+          description: id User
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Успешное удаление пользователя по id
+          content:
+            adplication/json: {}
+        "default":
+          description: Всё остальное
+          content:
+            adplication/json:
+              schema:
+                $ref: "#/components/schemas/Error" 
+ 
+  /editUser/{login}{hashPasword}{email}:                
+    put:
+      tags:
+        - Users
+      summary: Изменение пользователя
+      operationId: updateUser
+      parameters:
+        - name: login
+          in: path
+          required: true
+          description: Логин
+          schema:
+            type: string
+        - name: hashPasword
+          in: path
+          required: true
+          description: хеш пароля
+          schema:
+            type: integer          
+        - name: email
+          in: path
+          required: true
+          description: адрес эл. почты 
+          schema:
+            type: string
+        
+      requestBody:
+        required: true
+        content:
+            adplication/json:
+              schema:
+                $ref: "#/components/schemas/User" 
+      responses:
+        "200":
+          description: сервер изменён
+          content:
+            adplication/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "default":
+          description: Исключениия
+          content:
+            adplication/json:
+              schema:
+                $ref: "#/components/schemas/Error"            
+                
+                
+                
+                
+                
+                
+                
+  /Robots/{idGroup}:
+    get:
+      summary: получение списка роботов
+      tags: 
+        - Robots
+      operationId: getRobots
+      parameters:
+        - name: idGroup
+          in: path
+          required: true
+          description: id Group
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Успешный ответ со списком роботов
+          content:
+            adplication/json:
+              schema:
+                $ref: "#/components/schemas/Robots"
+        "default":
+          description:  Все остальное
+          content:
+            adplication/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+                                
+ 
+components:
+  schemas:
+    Robot:
+      type: object
+      required:
+        - id
+        - model
+        - version
+        - status
+        - resourse
+        - fabricNumber
+        - ipAdress
+        - idGroup
+      properties:
+        id:
+          type: integer
+          example: 1
+        model:
+          type: string
+          example: nomerOne122
+        version:
+          type: string
+          example: abc456
+        status:
+          type: string
+          example: working
+        resourse:
+          type: integer
+          example: 45
+        fabricNumber:
+          type: string
+        ipAdress:
+          type: string
+          example: 192.168.3.4
+        idGroup:
+          type: integer
+          example: 1
+    Robots:
+      type: array
+      items:
+        $ref: "#/components/schemas/Robot"
+    User:
+      type: object
+      required:
+        - id
+        - login
+        - hashPasword
+        - email
+      properties:
+        id:
+          type: integer
+          example: 123
+        login:
+          type: string
+          example: login
+        hashPasword:
+          type: integer
+        email:
+          type: string
+          example: test@test.ru
+    Users: 
+      type: array
+      items:
+        $ref: "#/components/schemas/User"
+    Error:
+      type: object
+      required:
+        - codeError
+        - messageError
+      properties:
+        codeError:
+          type: string
+          example: 23
+        messageError:
+          type: string
+          
+          
